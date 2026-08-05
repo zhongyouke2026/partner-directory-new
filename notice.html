@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공지사항 · 문의 - 중여커</title>
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .nt{border-top:2px solid var(--txt)}
+  .nt li{border-bottom:1px solid var(--line)}
+  .nt .hd{display:flex;gap:12px;align-items:center;padding:16px 6px;cursor:pointer}
+  .nt .hd .tt{flex:1;font-weight:700}
+  .nt .bd{display:none;padding:0 6px 20px;color:var(--txt-sub);white-space:pre-line;line-height:1.85}
+  .nt li.open .bd{display:block}
+  .nt li.open .hd .tt{color:var(--brand)}
+</style>
+</head>
+<body data-page-title="공지사항">
+
+<div data-ad-slot="top_strip"></div>
+<header class="site-header" id="siteHeader"></header>
+
+<main>
+  <section class="page-head">
+    <div class="container"><p class="bc" id="nBc"></p><h2 id="nTitle">공지사항 · 문의</h2></div>
+  </section>
+
+  <section class="container" style="padding:24px 20px 40px">
+    <div id="setupAlert"></div>
+    <ul class="nt" id="noticeList"></ul>
+
+    <div class="info-row" style="margin-top:36px">
+      <div class="info-box" id="csBox"></div>
+      <div class="info-box">
+        <h4>제휴 신청 안내</h4>
+        <p style="font-size:14px;color:var(--txt-sub);line-height:1.8">
+          중국 현지 사업자님의 제휴 신청을 상시 접수하고 있습니다.<br>
+          아래 연락처로 상호명 · 지역 · 업종 · 제공 가능한 혜택을 보내주세요.
+        </p>
+        <div class="cs-btns" id="partnerBtns"></div>
+      </div>
+    </div>
+
+    <div class="ad-wrap" style="margin-top:30px"><div data-ad-slot="list_inline"></div></div>
+  </section>
+</main>
+
+<footer class="site-footer" id="siteFooter"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+(async function(){
+  const {$,$$,esc}=ZYKUI;
+  const st=await ZYKUI.init('notice');
+  const s=st.settings||{};
+  if(s.notice_page_title)$('#nTitle').textContent=s.notice_page_title;
+  $('#nBc').innerHTML=`<a href="index.html">${ZYKIcon('home',13)}</a>${ZYKIcon('chevronRight',12)}<span>공지사항 · 문의</span>`;
+  const list=await ZYK.selectAll('notices',{orderBy:'created_at',asc:false});
+  list.sort((a,b)=>(b.is_pinned?1:0)-(a.is_pinned?1:0));
+  $('#noticeList').innerHTML=list.length?list.map(n=>`
+    <li id="n-${esc(n.id)}">
+      <div class="hd">
+        <span class="cat" style="font-size:11.5px;font-weight:700;color:var(--brand);background:var(--brand-light);padding:3px 9px;border-radius:5px">${esc(n.category||'공지')}</span>
+        <span class="tt">${n.is_pinned?ZYKIcon('pin',14):''}${esc(n.title)}</span>
+        <span style="font-size:12px;color:var(--txt-mute)">${(n.created_at||'').slice(0,10)}</span>
+      </div>
+      <div class="bd">${esc(n.content||'')}</div>
+    </li>`).join(''):`<li><div class="hd"><span class="tt">등록된 공지가 없습니다.</span></div></li>`;
+  $$('.nt .hd').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
+  if(location.hash){const el=document.querySelector(location.hash); if(el){el.classList.add('open');el.scrollIntoView({block:'center'});}}
+
+  $('#csBox').innerHTML=`
+    <h4>${esc(s.cs_title||'중여커 고객센터')}</h4>
+    ${s.cs_phone?`<div class="cs-tel">${esc(s.cs_phone)}</div>`:''}
+    ${s.cs_wechat_id?`<div class="cs-tel" style="font-size:20px">위챗 ${esc(s.cs_wechat_id)}</div>`:''}
+    <div class="cs-meta">${esc(s.cs_hours||'')}</div>`;
+  $('#partnerBtns').innerHTML=`
+    ${s.cs_kakao_url?`<a href="${esc(s.cs_kakao_url)}" target="_blank" rel="noopener">카카오 문의</a>`:''}
+    ${s.cs_email?`<a href="mailto:${esc(s.cs_email)}">이메일 문의</a>`:''}
+    <a href="page.html?slug=partner">제휴 안내 페이지</a>`;
+})();
+</script>
+</body>
+</html>

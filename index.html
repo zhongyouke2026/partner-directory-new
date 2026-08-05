@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중여커 중국 현지 제휴 혜택 가이드</title>
+<meta name="description" content="중국 주요 제휴업체의 상호명, 지역, 업종, 혜택 현황을 한눈에 파악할 수 있는 가이드입니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="중여커">
+<meta property="og:title" content="중여커 중국 현지 제휴 혜택 가이드">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- 상단 띠광고 -->
+<div data-ad-slot="top_strip"></div>
+
+<header class="site-header" id="siteHeader"></header>
+
+<main>
+  <div class="container"><div id="setupAlert"></div></div>
+
+  <!-- 히어로 슬라이더 -->
+  <section class="hero" id="hero">
+    <div class="hero-track" id="heroTrack"></div>
+    <button class="hero-arrow prev" id="heroPrev" aria-label="이전">‹</button>
+    <button class="hero-arrow next" id="heroNext" aria-label="다음">›</button>
+    <div class="hero-nav"><div class="container" id="heroDots"></div></div>
+  </section>
+
+  <!-- 퀵 카테고리 -->
+  <section class="quick-cat">
+    <div class="container"><ul id="quickCat"></ul></div>
+  </section>
+
+  <!-- 인기 키워드 -->
+  <section class="container" style="padding:18px 20px 0">
+    <div class="tabs" id="keywordList"></div>
+  </section>
+
+  <!-- 메인 와이드 광고 -->
+  <section class="container ad-wrap"><div data-ad-slot="main_wide"></div></section>
+
+  <!-- 추천 업체 -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div><h3 id="secFeaturedTitle">중여커 추천 업체</h3><p id="secFeaturedSub"></p></div>
+        <a class="sec-more" href="list.html?featured=1">전체보기 ›</a>
+      </div>
+      <div class="tabs" id="featTabs"></div>
+      <div class="card-grid" id="featGrid"></div>
+    </div>
+  </section>
+
+  <!-- 영상 (릴스 / 쇼츠) -->
+  <section class="section soft" id="mediaSection">
+    <div class="container">
+      <div class="sec-head">
+        <div><h3 id="secMediaTitle">영상으로 먼저 보기</h3><p id="secMediaSub"></p></div>
+        <a class="sec-more" href="media.html">전체보기 ›</a>
+      </div>
+      <div class="media-scroll" id="mediaScroll"></div>
+    </div>
+  </section>
+
+  <!-- 지역별 -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div><h3 id="secRegionTitle">지역별 제휴업체</h3><p id="secRegionSub"></p></div>
+        <a class="sec-more" href="list.html">전체보기 ›</a>
+      </div>
+      <div class="tabs" id="regionTabs"></div>
+      <div class="card-grid" id="regionGrid"></div>
+    </div>
+  </section>
+
+  <!-- 기획전 -->
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head">
+        <div><h3 id="secEventTitle">기획전 · 이벤트</h3><p id="secEventSub"></p></div>
+      </div>
+      <div class="event-grid" id="eventGrid"></div>
+    </div>
+  </section>
+
+  <!-- 시리즈 카드 -->
+  <section class="section" id="seriesSection" style="display:none">
+    <div class="container">
+      <div class="sec-head"><div><h3 id="seriesTitle">중여커 시리즈</h3></div></div>
+      <div class="series-list" id="seriesList"></div>
+    </div>
+  </section>
+
+  <!-- 공지 + 고객센터 -->
+  <section class="section">
+    <div class="container">
+      <div class="info-row">
+        <div class="info-box">
+          <h4>공지사항 <a class="sec-more" href="notice.html">더보기 ›</a></h4>
+          <ul class="notice-list" id="noticeList"></ul>
+        </div>
+        <div class="info-box" id="csBox"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="siteFooter"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/cards.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

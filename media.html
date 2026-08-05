@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>영상 모아보기 - 중여커</title>
+<meta name="description" content="인스타 릴스·유튜브 쇼츠로 만나는 중여커 제휴업체">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .vgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  @media(max-width:1024px){.vgrid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:768px){.vgrid{grid-template-columns:repeat(2,1fr);gap:10px}}
+</style>
+</head>
+<body data-page-title="영상 모아보기">
+
+<div data-ad-slot="top_strip"></div>
+<header class="site-header" id="siteHeader"></header>
+
+<main>
+  <section class="page-head">
+    <div class="container">
+      <p class="bc" id="mBc"></p>
+      <h2 id="mTitle"></h2>
+    </div>
+  </section>
+
+  <section class="container" style="padding-top:20px">
+    <div id="setupAlert"></div>
+    <div class="tabs" id="platTabs"></div>
+    <div class="result-bar"><div>총 <b id="cnt">0</b>개 영상</div></div>
+    <div class="vgrid" id="vgrid"></div>
+    <div class="ad-wrap" style="margin:28px 0"><div data-ad-slot="list_inline"></div></div>
+  </section>
+</main>
+
+<footer class="site-footer" id="siteFooter"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/cards.js"></script>
+<script>
+(async function(){
+  const {$,$$,esc}=ZYKUI;
+  await ZYKUI.init('media');
+  const S=(ZYKUI.state.settings||{});$('#mTitle').innerHTML=ZYKIcon('video',24)+' '+esc(S.media_page_title||'영상으로 보는 제휴업체');
+  $('#mBc').innerHTML=`<a href="index.html">${ZYKIcon('home',13)}</a>${ZYKIcon('chevronRight',12)}<span>영상 모아보기</span>`;
+  const [media,partners]=await Promise.all([
+    ZYK.selectAll('partner_media',{orderBy:'sort'}),
+    ZYK.selectAll('partners',{orderBy:'sort'})
+  ]);
+  const pMap={}; partners.forEach(p=>pMap[p.id]=p.name);
+  const plats=[['','전체'],['youtube','YouTube 쇼츠'],['instagram','인스타 릴스'],['tiktok','TikTok'],['douyin','더우인'],['xiaohongshu','샤오홍슈'],['bilibili','빌리빌리'],['kuaishou','콰이쇼우'],['video','직접 업로드']];
+  const avail=plats.filter(([k])=>!k||media.some(m=>ZYKUI.parseMedia(m.url,m.platform).platform===k));
+  $('#platTabs').innerHTML=avail.map(([k,l],i)=>`<button class="tab ${i===0?'on':''}" data-p="${esc(k)}">${esc(l)}</button>`).join('');
+  function draw(plat){
+    const list=plat?media.filter(m=>ZYKUI.parseMedia(m.url,m.platform).platform===plat):media;
+    $('#cnt').textContent=list.length;
+    ZYKCards.renderMedia($('#vgrid'),list,pMap);
+  }
+  draw('');
+  $$('#platTabs .tab').forEach(t=>t.addEventListener('click',()=>{
+    $$('#platTabs .tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on'); draw(t.dataset.p);
+  }));
+})();
+</script>
+</body>
+</html>

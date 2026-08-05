@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>중여커</title>
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .page-body{padding:30px 0 60px;font-size:15px;line-height:1.9;color:var(--txt-sub)}
+  .page-body h2,.page-body h3{color:var(--txt);margin:26px 0 10px}
+  .page-body img{border-radius:12px;margin:14px 0}
+  .page-body a{color:var(--brand);text-decoration:underline}
+  .page-body table{width:100%;border-collapse:collapse;margin:14px 0}
+  .page-body th,.page-body td{border:1px solid var(--line);padding:10px}
+</style>
+</head>
+<body data-page-title="안내">
+
+<div data-ad-slot="top_strip"></div>
+<header class="site-header" id="siteHeader"></header>
+
+<main>
+  <section class="page-head">
+    <div class="container"><p class="bc" id="bc"></p><h2 id="pTitle">안내</h2></div>
+  </section>
+  <section class="container">
+    <div id="setupAlert"></div>
+    <div class="page-body" id="pBody"></div>
+    <div class="ad-wrap" style="margin-bottom:30px"><div data-ad-slot="list_inline"></div></div>
+  </section>
+</main>
+
+<footer class="site-footer" id="siteFooter"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+(async function(){
+  const {$,esc,qs}=ZYKUI;
+  await ZYKUI.init('page');
+  const slug=qs.get('slug')||'about';
+  const pages=await ZYK.selectAll('pages',{orderBy:'sort'});
+  const pg=pages.find(x=>x.slug===slug);
+  if(!pg){
+    $('#pBody').innerHTML='<div class="empty"><div class="ei">'+ZYKIcon('file',42)+'</div><p>페이지를 찾을 수 없습니다.</p></div>';
+    return;
+  }
+  if(pg.external_url){ location.replace(pg.external_url); return; }
+  document.title=pg.title+' - 중여커';
+  $('#pTitle').textContent=pg.title;
+  $('#bc').innerHTML=`<a href="index.html">${ZYKIcon('home',13)}</a>${ZYKIcon('chevronRight',12)}<span>${esc(pg.title)}</span>`;
+  $('#pBody').innerHTML=pg.content||'<p>내용이 없습니다.</p>';
+})();
+</script>
+</body>
+</html>
