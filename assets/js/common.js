@@ -67,7 +67,7 @@
       const kind = m[1] === 'p' ? 'p' : (m[1] === 'tv' ? 'tv' : 'reel');
       return R({
         platform: 'instagram', id: m[2], label: 'Instagram', icon: 'instagram',
-        embed: `https://www.instagram.com/${kind}/${m[2]}/embed/`
+        embed: null
       });
     }
 
@@ -102,6 +102,10 @@
   /* ================= 영상 모달 ================= */
   function openVideo(url, forced) {
     const info = parseMedia(url, forced);
+    if (!info.embed && !info.file) {
+      window.open(info.url, '_blank', 'noopener');
+      return;
+    }
     let m = $('#zykVModal');
     if (!m) {
       m = document.createElement('div');
@@ -551,7 +555,7 @@
             ${a.is_closable !== false ? `<button class="ad-strip-x" aria-label="광고 닫기">${I('close', 18)}</button>` : ''}
           </div></div>`;
         const x = $('.ad-strip-x', host);
-        x && x.addEventListener('click', () => { sessionStorage.setItem('zyk_ad_close_' + a.id, '1'); host.style.height = host.offsetHeight + 'px'; host.classList.add('closing'); setTimeout(() => host.innerHTML = '', 220); });
+        x && x.addEventListener('click', () => { sessionStorage.setItem('zyk_ad_close_' + a.id, '1'); host.style.height = host.offsetHeight + 'px'; host.classList.add('closing'); setTimeout(() => { host.innerHTML = ''; host.style.height = ''; }, 220); });
       } else {
         host.innerHTML = `<div class="ad-box ad-${esc(slot)}">${list.map(adHtml).join('')}</div>`;
       }

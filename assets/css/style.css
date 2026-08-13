@@ -200,9 +200,10 @@ h1,h2,h3,h4,h5{margin:0;font-weight:800;letter-spacing:-.02em}
 .pcard:hover .pcard-thumb img{transform:scale(1.06)}
 .pcard-thumb .ph{width:100%;height:100%;display:grid;place-items:center;font-size:36px;color:#b7d3e5}
 .pcard-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:6px;background:var(--point);color:#fff;font-size:11.5px;font-weight:800}
-.pcard-like{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;font-size:15px}
+.pcard-like{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,0.08)}
 .pcard-like.on{color:#e8384f}
-.pcard-benefit{position:absolute;left:0;bottom:0;padding:5px 12px;background:var(--brand-dark);color:#fff;font-size:12.5px;font-weight:700;border-radius:0 8px 0 0}
+.pcard-benefit{position:absolute;left:0;bottom:0;padding:5px 12px;background:var(--brand-dark);color:#fff;font-size:12.5px;font-weight:700;border-radius:0 8px 0 0;max-width:92%}
+.pcard-benefit .txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pcard-body{padding:14px 15px 16px;display:flex;flex-direction:column;gap:7px;flex:1}
 .pcard-meta{display:flex;gap:6px;font-size:12px;color:var(--txt-mute)}
 .pcard-meta span{padding:2px 8px;background:var(--bg-soft);border-radius:5px}
@@ -285,6 +286,7 @@ h1,h2,h3,h4,h5{margin:0;font-weight:800;letter-spacing:-.02em}
 .m-tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:10.5px;color:var(--txt-mute)}
 .m-tabbar a.on{color:var(--brand);font-weight:700}
 .m-tabbar i{font-style:normal;font-size:19px}
+body[data-page-title*="상세"] .m-tabbar{display:none !important}
 
 /* ============================ 목록 페이지 ============================ */
 .page-head{background:var(--brand-light);padding:32px 0}
@@ -367,8 +369,7 @@ h1,h2,h3,h4,h5{margin:0;font-weight:800;letter-spacing:-.02em}
   .site-header{border-bottom:1px solid var(--line)}
   .m-tabbar{display:block}
   .site-footer{padding-bottom:90px}
-  .floating{bottom:78px;right:14px}
-  .floating a,.floating button{width:44px;height:44px}
+  .floating{display:none !important}
 
   .hero-slide{height:250px}
   .hero-slide h2{font-size:23px}
@@ -704,7 +705,7 @@ body.show-float .floating{opacity:1;pointer-events:auto;transform:none}
 .detail-links a:hover{border-color:var(--brand);color:var(--brand)}
 
 /* ---------- 상세: 탭 ---------- */
-.detail-tabs{position:sticky;top:0;z-index:600;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(24,50,72,.05)}
+.detail-tabs{position:sticky;top:157px;z-index:600;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(24,50,72,.05)}
 .detail-tabs .container{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .detail-tabs .container::-webkit-scrollbar{display:none}
 .detail-tabs a{flex:0 0 auto;padding:15px 18px;font-size:15px;font-weight:700;color:var(--txt-sub);white-space:nowrap;position:relative}
@@ -752,7 +753,7 @@ body.show-float .floating{opacity:1;pointer-events:auto;transform:none}
 .sc-info span{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--brand-dark);font-weight:700}
 .sc-fav{width:44px;height:44px;border-radius:12px;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--txt-sub);flex:none}
 .sc-fav.on{color:#e8384f;border-color:#f3c5cb;background:#fff5f6}
-.sticky-cta .btn-primary{flex:none;min-width:150px}
+.sticky-cta .btn-primary{flex:none;min-width:150px;height:44px;border-radius:12px;padding:0 22px}
 
 /* ---------- 빈 상태 / 안내 ---------- */
 .empty .ei{color:#c3d6e3;display:flex;justify-content:center;margin-bottom:10px}
@@ -770,8 +771,9 @@ body.show-float .floating{opacity:1;pointer-events:auto;transform:none}
   .detail-tabs{top:56px}
   .detail-tabs a{padding:13px 14px;font-size:14px}
   .sticky-cta{bottom:56px}
+  body[data-page-title*="상세"] .sticky-cta{bottom:0 !important;padding-bottom:env(safe-area-inset-bottom)}
   .sticky-cta .container{height:60px;padding:0 12px}
-  .sticky-cta .btn-primary{min-width:118px;padding:0 14px;font-size:14px}
+  .sticky-cta .btn-primary{min-width:118px;height:44px;border-radius:12px;padding:0 14px;font-size:14px}
   .sc-info b{font-size:14px}
   .gal-arw{opacity:1;width:34px;height:34px}
   body.show-float .floating{bottom:120px}

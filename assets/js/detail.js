@@ -46,7 +46,7 @@
   const row = (icon, label, value) => value
     ? `<tr><th>${I(icon, 15)}${esc(label)}</th><td>${esc(value)}</td></tr>` : '';
 
-  const benefitLines = String(p.benefit_detail || '').split('\n').map(s => s.replace(/^[·•\-\s]+/, '').trim()).filter(Boolean);
+  const benefitLines = String(p.benefit_detail || '').replace(/\\n/g, '\n').split('\n').map(s => s.replace(/^[·•\-\s]+/, '').trim()).filter(Boolean);
 
   const tabs = [
     p.benefit_detail && ['benefit', T('detail_benefit_sec', '제휴 혜택 상세')],
@@ -87,7 +87,7 @@
           ${p.region_label ? `<span>${I('mapPin', 12)}${esc(p.region_label)}</span>` : ''}
           ${p.category_label ? `<span>${esc(p.category_label)}</span>` : ''}
           ${p.branch_count > 1 ? `<span>지점 ${p.branch_count}개</span>` : ''}
-          ${p.view_count ? `<span>조회 ${Number(p.view_count).toLocaleString()}</span>` : ''}
+
         </div>
         <h1>${esc(p.name)}</h1>
         ${p.name_cn ? `<div class="cn">${esc(p.name_cn)}</div>` : ''}
@@ -139,7 +139,7 @@
   </div></section>` : ''}
 
   ${p.description ? `<section class="detail-sec" id="sec-intro"><div class="container">
-    <h3>${I('store', 21)}${esc(T('detail_intro_sec', '업체 소개'))}</h3><div class="rich">${esc(p.description)}</div>
+    <h3>${I('store', 21)}${esc(T('detail_intro_sec', '업체 소개'))}</h3><div class="rich">${esc(String(p.description).replace(/\\n/g, '\n').trim())}</div>
   </div></section>` : ''}
 
   ${media.length ? `<section class="detail-sec" id="sec-media"><div class="container">

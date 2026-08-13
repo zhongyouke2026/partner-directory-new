@@ -5,8 +5,8 @@
  *  anon key 는 공개되어도 안전한 키입니다(RLS로 보호).
  * ===================================================================*/
 window.ZYK_CONFIG = {
-  SUPABASE_URL: 'https://npkdslhcvgjvzjatkeyz.supabase.co',
-  SUPABASE_ANON_KEY: 'sb_publishable_TXF5cgibca7KEWSjHrxpPQ_kBKuVMfW',
+  SUPABASE_URL: 'https://yoczpphzngihbzyclrrb.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_WK9GwbU2W9ihdS48BHzb7A_9bJnBA5Z',
 
   // Supabase Storage 버킷명 (schema.sql 에서 자동 생성됨)
   STORAGE_BUCKET: 'media',

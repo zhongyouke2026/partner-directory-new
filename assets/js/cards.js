@@ -30,7 +30,7 @@
           ${thumb}
           ${p.badge ? `<span class="pcard-badge">${esc(p.badge)}</span>` : ''}
           ${p.external_url ? `<span class="pcard-ext">${I('external', 13)}</span>` : ''}
-          ${p.benefit_summary ? `<span class="pcard-benefit">${I('gift', 14)}${esc(p.benefit_summary)}</span>` : ''}
+          ${p.benefit_summary ? `<span class="pcard-benefit">${I('gift', 14)}<span class="txt">${esc(p.benefit_summary)}</span></span>` : ''}
         </div>
       </a>
       <button class="pcard-like ${fav ? 'on' : ''}" data-fav="${esc(p.id)}" aria-label="찜하기" aria-pressed="${fav}">
